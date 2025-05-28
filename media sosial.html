@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Sosial - Habib Al Hakim Azwar</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <canvas id="neonParticles"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar top-nav">
+    <div class="logo">CV HABIB AL HAKIM AZWAR</div>
+    <div id="menuToggle" class="menu-toggle">☰</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="index.html">CV</a></li>
+      <li><a href="hubungi saya.html">Contact</a></li>
+    </ul>
+    <button id="darkModeToggle" class="dark-toggle">🌙</button>
+  </nav>
+
+  <!-- Konten Media Sosial -->
+  <div class="container">
+    <div class="card">
+      <h1 class="home-title">Media Sosial Saya</h1>
+      <p class="home-desc">Silakan kunjungi akun media sosial saya melalui tautan berikut:</p>
+
+      <table class="cv-table">
+        <tr>
+          <td>
+            <h3><i class="fab fa-instagram"></i> Instagram</h3>
+            <p><a href="https://www.instagram.com/habibalhakim45?igsh=MWk2amhieW90aXozeQ==" target="_blank" class="btn-neon">
+              <i class="fab fa-instagram"></i> Kunjungi Instagram
+            </a></p>
+          </td>
+          <td>
+            <h3><i class="fab fa-facebook"></i> Facebook</h3>
+            <p><a href="https://www.facebook.com/share/16U37xKrqh/" target="_blank" class="btn-neon">
+              <i class="fab fa-facebook"></i> Kunjungi Facebook
+            </a></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h3><i class="fab fa-github"></i> GitHub</h3>
+            <p><a href="https://github.com/Habib225522" target="_blank" class="btn-neon">
+              <i class="fab fa-github"></i> Kunjungi GitHub
+            </a></p>
+          </td>
+          <td>
+            <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
+            <p><a href="https://wa.me/qr/WBWWL22WO5WBL1" target="_blank" class="btn-neon">
+              <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+            </a></p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Habib Al Hakim Azwar</p>
+  </footer>
+
+  <!-- Script Partikel & Dark Mode -->
+  <script>
+    const canvas = document.getElementById("neonParticles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+    const colors = ["#ff00cc", "#00ffe5", "#3333ff", "#cc00ff"];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1.5 - 0.75;
+        this.speedY = Math.random() * 1.5 - 0.75;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x <= 0 || this.x >= canvas.width) this.speedX *= -1;
+        if (this.y <= 0 || this.y >= canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a + 1; b < particlesArray.length; b++) {
+          const dx = particlesArray[a].x - particlesArray[b].x;
+          const dy = particlesArray[a].y - particlesArray[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = "#ff00cc44";
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      const total = Math.floor((canvas.width * canvas.height) / 9000);
+      for (let i = 0; i < total; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let particle of particlesArray) {
+        particle.update();
+        particle.draw();
+      }
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      document.getElementById("navLinks").classList.toggle("active");
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("mode") === "dark") {
+        document.body.classList.add("dark");
+      }
+    });
+
+    document.getElementById("darkModeToggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("mode", document.body.classList.contains("dark") ? "dark" : "light");
+    });
+
+    init();
+    animate();
+  </script>
+</body>
+</html>

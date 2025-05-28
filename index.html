@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curriculum Vitae</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="neonParticles"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar top-nav">
+    <div class="logo">CV HABIB AL HAKIM AZWAR</div>
+    <div id="menuToggle" class="menu-toggle">☰</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="home.html">HOME</a></li>
+      <li><a href="hubungi saya.html">Contact</a></li>
+      <li><a href="media sosial.html">MEDIA SOSIAL</a></li>
+    </ul>
+    <button id="darkModeToggle" class="dark-toggle">🌙</button>
+  </nav>
+
+  <!-- Konten CV -->
+  <div class="container">
+    <div class="card">
+      <table class="cv-table">
+        <tr class="photo-row">
+          <td colspan="2">
+            <div class="photo-wrapper">
+              <div class="neon-frame">
+                <img src="D:\xampp\htdocs\quiz_Habib Al Hakim Azwar\images/_DSC0113_073123.jpg" alt="Foto" class="photo" />
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="section">
+            <h3>Biodata</h3>
+            <p><strong>Nama:</strong> Habib Al Hakim Azwar</p>
+            <p><strong>Alamat:</strong> Jl. H.M.Nur, Pekanbaru</p>
+            <p><strong>Telepon:</strong> 0821-7294-8734</p>
+            <p><strong>Email:</strong> habibalhakim22@gmail.com</p>
+          </td>
+          <td class="section">
+            <h3>Pendidikan</h3>
+            <p><strong>SDN 32 Pekanbaru</strong><br>Pekanbaru, 2014-2019</p>
+            <p><strong>SMP Negeri 30 Pekanbaru</strong><br>Pekanbaru, 2019 - 2021</p>
+            <p><strong>SMK Muhammadiyah 1 Pekanbaru</strong><br>Pekanbaru, 2021 - 2023</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="section">
+            <h3>Pengalaman</h3>
+            <p><strong>Web Developer</strong></p>
+            <p><strong>Magang Programmer</strong></p>
+          </td>
+          <td class="section">
+            <h3>Kemampuan</h3>
+            <ul>
+              <li>HTML, CSS, JavaScript</li>
+              <li>React, Tailwind</li>
+              <li>Python, PHP</li>
+              <li>UI/UX Design</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Habib Al Hakim Azwar</p>
+  </footer>
+
+  <!-- Script Neon Particles + Interaksi -->
+  <script>
+    const canvas = document.getElementById("neonParticles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+    const colors = ["#ff00cc", "#00ffe5", "#3333ff", "#cc00ff"];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1.5 - 0.75;
+        this.speedY = Math.random() * 1.5 - 0.75;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x <= 0 || this.x >= canvas.width) this.speedX *= -1;
+        if (this.y <= 0 || this.y >= canvas.height) this.speedY *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a + 1; b < particlesArray.length; b++) {
+          const dx = particlesArray[a].x - particlesArray[b].x;
+          const dy = particlesArray[a].y - particlesArray[b].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = "#ff00cc44";
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      const total = Math.floor((canvas.width * canvas.height) / 9000);
+      for (let i = 0; i < total; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let particle of particlesArray) {
+        particle.update();
+        particle.draw();
+      }
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      document.getElementById("navLinks").classList.toggle("active");
+    });
+
+    // Cek status dark mode saat halaman dimuat
+    document.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("mode") === "dark") {
+        document.body.classList.add("dark");
+      }
+    });
+
+    // Tombol dark mode toggle
+    document.getElementById("darkModeToggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+
+      // Simpan status dark mode ke localStorage
+      if (document.body.classList.contains("dark")) {
+        localStorage.setItem("mode", "dark");
+      } else {
+        localStorage.setItem("mode", "light");
+      }
+    });
+
+    init();
+    animate();
+  </script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+/* ==================== GLOBAL ==================== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: #0f0f0f;
+  color: #0080ff;
+  overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+body.dark {
+  background: #ffffff;
+  color: #000000;
+}
+
+#neonParticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* ==================== NAVBAR ==================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #111;
+  padding: 10px 20px;
+  color: white;
+  box-shadow: 0 0 10px #0080ff;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.menu-toggle {
+  font-size: 28px;
+  cursor: pointer;
+  display: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.top-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px #0080ff;
+}
+
+.top-nav a:hover {
+  color: #0080ff;
+  border-color: #0080ff;
+  background-color: rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #0080ff;
+}
+
+/* ==================== DARK MODE BUTTON ==================== */
+.dark-toggle {
+  background: none;
+  border: 1px solid #0080ff;
+  color: #0080ff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ==================== RESPONSIVE NAVBAR ==================== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #111;
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    width: 200px;
+    padding: 10px;
+    box-shadow: 0 0 10px #0080ff;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+
+/* ==================== CV PAGE ==================== */
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  background: #1a1a1a;
+  border: 2px solid #0080ff;
+  box-shadow: 0 0 20px #0080ff;
+  border-radius: 15px;
+  overflow: hidden;
+  animation: fadeIn 1.2s ease;
+}
+
+.card {
+  padding: 20px;
+}
+
+.cv-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 15px;
+}
+
+.cv-table td {
+  background: #141414;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+  vertical-align: top;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cv-table td:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #ffffff;
+}
+
+.photo-row {
+  text-align: center;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.photo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.neon-frame {
+  width: 220px;
+  height: 220px;
+  border: 4px solid #0080ff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #0080ff, 0 0 20px #0080ff, 0 0 30px #0080ff;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Kalau mau frame bulat gunakan kelas ini */
+.neon-frame-circle {
+  width: 220px;
+  height: 220px;
+  border: 4px solid #0080ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #0080ff, 0 0 20px #0080ff, 0 0 30px #0080ff;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.section h3 {
+  color: #0080ff;
+  margin-top: 0;
+  text-shadow: 0 0 6px #0080ff;
+}
+
+/* ==================== HOME PAGE ==================== */
+.home-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+  color: #0080ff;
+  text-shadow: 0 0 10px #0080ff;
+}
+
+.home-desc {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.btn-neon {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border: 2px solid #0080ff;
+  color: #0080ff;
+  text-decoration: none;
+  border-radius: 30px;
+  box-shadow: 0 0 10px #0080ff, 0 0 20px #0080ff;
+  transition: 0.3s ease;
+}
+
+.btn-neon:hover {
+  background: #0080ff;
+  color: #0f0f0f;
+  box-shadow: 0 0 20px #0080ff, 0 0 30px #0080ff;
+}
+
+.profile-photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #0080ff;
+  box-shadow: 0 0 15px #0080ff;
+}
+
+/* ==================== HUBUNGI SAYA ==================== */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-family: 'Orbitron', sans-serif;
+  background: #0f0f0f;
+  color: #0080ff;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #0080ff;
+}
+
+.contact-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #0080ff;
+  color: #0f0f0f;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px #0080ff;
+  transition: 0.3s;
+}
+
+.contact-form button:hover {
+  background: #0080ff;
+  box-shadow: 0 0 20px #0080ff;
+  color: #fff;
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+  margin-top: 220px;
+  background: #111;
+  color: #ffffff;
+  text-align: center;
+  padding: 15px;
+  border-top: 2px solid #0080ff;
+  box-shadow: inset 0 5px 15px #0080ff;
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
